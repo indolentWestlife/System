@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.second.dao.TeacherDao">
+    <resultMap id="BaseResultMap" type="com.example.second.entity.Teacher">
+        <id column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="teach_class" property="teach_class" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="INTEGER"/>
+        <result column="post" property="post" jdbcType="VARCHAR"/>
+        <result column="evaluate" property="evaluate" jdbcType="VARCHAR"/>
+        <result column="ed" property="ed" jdbcType="VARCHAR"/>
+        <result column="folk" property="folk" jdbcType="VARCHAR"/>
+        <result column="tel" property="tel" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="np" property="np" jdbcType="VARCHAR"/>
+        <result column="identify" property="identify" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="college" property="college" jdbcType="VARCHAR"/>
+        <result column="graduate" property="graduate" jdbcType="VARCHAR"/>
+        <result column="ps" property="ps" jdbcType="VARCHAR"/>
+        <result column="ms" property="ms" jdbcType="VARCHAR"/>
+        <result column="passrate" property="passrate" jdbcType="INTEGER"/>
+        <result column="hobby" property="hobby" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, name, age, sex, subject, teach_class, num, post, evaluate, ed, folk, tel, email,
+        np, identify, address, college, graduate, ps, ms, passrate, hobby
+    </sql>
+
+    <select id="findAllTeachers" resultType="com.example.second.entity.Teacher">
+        select * from teacher
+    </select>
+
+    <select id="findTeacherByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from teacher where name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteTeachersByIds">
+        delete from teacher where uid in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getCountTeachers" resultType="java.lang.Integer">
+        select count(uid) as count from teacher
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteTeacherById" parameterType="java.lang.Long">
+        delete from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.second.entity.Teacher">
+        insert into teacher (uid, name, age, sex, subject, teach_class, num, post, evaluate, ed)
+        values (#{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+                #{sex,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{teach_class,jdbcType=VARCHAR},
+                #{num,jdbcType=INTEGER}, #{post,jdbcType=VARCHAR}, #{evaluate,jdbcType=VARCHAR},
+                #{ed,jdbcType=VARCHAR}, #{folk,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR}, #{np,jdbcType=VARCHAR}, #{identify,jdbcType=VARCHAR},
+                #{address,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{graduate,jdbcType=VARCHAR},
+                #{ps,jdbcType=VARCHAR}, #{ms,jdbcType=VARCHAR}, #{passrate,jdbcType=INTEGER}, #{hobby,jdbcType=VARCHAR})
+    </insert>
+    <insert id="addTeacher" parameterType="com.example.second.entity.Teacher">
+        insert into teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="subject != null">
+                subject,
+            </if>
+            <if test="teach_class != null">
+                teach_class,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="post != null">
+                post,
+            </if>
+            <if test="evaluate != null">
+                evaluate,
+            </if>
+            <if test="ed != null">
+                ed,
+            </if>
+            <if test="folk != null">
+                folk,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="np != null">
+                np,
+            </if>
+            <if test="identify != null">
+                identify,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="college != null">
+                college,
+            </if>
+            <if test="graduate != null">
+                graduate,
+            </if>
+            <if test="ps != null">
+                ps,
+            </if>
+            <if test="ms != null">
+                ms,
+            </if>
+            <if test="passrate != null">
+                passrate,
+            </if>
+            <if test="hobby != null">
+                hooby,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="teach_class != null">
+                #{teach_class,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                #{num,jdbcType=INTEGER},
+            </if>
+            <if test="post != null">
+                #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluate != null">
+                #{evaluate,jdbcType=VARCHAR},
+            </if>
+            <if test="ed != null">
+                #{ed,jdbcType=VARCHAR},
+            </if>
+            <if test="folk != null">
+                #{folk,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="np != null">
+                #{np,jdbcType=VARCHAR},
+            </if>
+            <if test="identify != null">
+                #{identify,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="college != null">
+                #{college,jdbcType=VARCHAR},
+            </if>
+            <if test="graduate != null">
+                #{graduate,jdbcType=VARCHAR},
+            </if>
+            <if test="ps != null">
+                #{ps,jdbcType=VARCHAR},
+            </if>
+            <if test="ms != null">
+                #{ms,jdbcType=VARCHAR},
+            </if>
+            <if test="passrate != null">
+                #{passrate,jdbcType=INTEGER},
+            </if>
+            <if test="hobby != null">
+                #{hobby,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateTeacher" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="teach_class != null">
+                teach_class = #{teach_class,jdbcType=VARCHAR},
+            </if>
+            <if test="num != null">
+                num = #{num,jdbcType=INTEGER},
+            </if>
+            <if test="post != null">
+                post = #{post,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluate != null">
+                evaluate = #{evaluate,jdbcType=VARCHAR},
+            </if>
+            <if test="ed != null">
+                ed = #{ed,jdbcType=VARCHAR},
+            </if>
+            <if test="folk != null">
+                folk = #{folk,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="np != null">
+                np = #{np,jdbcType=VARCHAR},
+            </if>
+            <if test="identify != null">
+                identify = #{identify,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="college != null">
+                college = #{college,jdbcType=VARCHAR},
+            </if>
+            <if test="graduate != null">
+                graduate = #{graduate,jdbcType=VARCHAR},
+            </if>
+            <if test="ps != null">
+                ps = #{ps,jdbcType=VARCHAR},
+            </if>
+            <if test="ms != null">
+                ms = #{ms,jdbcType=VARCHAR},
+            </if>
+            <if test="passrate != null">
+                passrate = #{passrate,jdbcType=INTEGER},
+            </if>
+            <if test="hobby != null">
+                hobby = #{hobby,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        set name = #{name,jdbcType=VARCHAR},
+            age = #{age,jdbcType=INTEGER},
+            sex = #{sex,jdbcType=VARCHAR},
+            subject = #{subject,jdbcType=VARCHAR},
+            teach_class = #{teach_class,jdbcType=VARCHAR},
+            num = #{num,jdbcType=INTEGER},
+            post = #{post,jdbcType=VARCHAR},
+            evaluate = #{evaluate,jdbcType=VARCHAR},
+            ed = #{ed,jdbcType=VARCHAR},
+            folk = #{folk,jdbcType=VARCHAR},
+            tel = #{tel,jdbcType=VARCHAR},
+            email = #{email,jdbcType=VARCHAR},
+            np = #{np,jdbcType=VARCHAR},
+            identify = #{identify,jdbcType=VARCHAR},
+            address = #{address,jdbcType=VARCHAR},
+            college = #{college,jdbcType=VARCHAR},
+            graduate = #{graduate,jdbcType=VARCHAR},
+            ps = #{ps,jdbcType=VARCHAR},
+            ms = #{ms,jdbcType=VARCHAR},
+            passrate = #{passrate,jdbcType=INTEGER},
+            hobby = #{hobby,jdbcType=VARCHAR},
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+</mapper>
